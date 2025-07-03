@@ -1,0 +1,4 @@
+repository "demo-metroidvania@MiguelBriseno@cloud"
+  path "/"
+    br "/main"
+    co "/main"
