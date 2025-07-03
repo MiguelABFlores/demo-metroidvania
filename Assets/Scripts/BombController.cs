@@ -24,6 +24,7 @@ public class BombController : MonoBehaviour
             {
                 Instantiate(explosion, transform.position, transform.rotation);
             }
+
             Destroy(gameObject);
 
             Collider2D[] objectsToRemove = Physics2D.OverlapCircleAll(transform.position, blastRange, whatIsDestructible);
