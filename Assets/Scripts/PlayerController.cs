@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         // Ball Mode
         if (!ball.activeSelf)
         {
-            if (Input.GetAxisRaw("Vertical") < -0.9f && abilities.canBecomeBall)
+            if (Input.GetAxisRaw("Vertical") < -0.9f && abilities.canMorphBall)
             {
                 ballCounter -= Time.deltaTime;
                 if (ballCounter <= 0)
