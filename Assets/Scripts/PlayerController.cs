@@ -40,9 +40,11 @@ public class PlayerController : MonoBehaviour
     public Transform bombPoint;
     public GameObject bomb;
 
+    private PlayerAbilityTracker abilities;
+
     void Start()
     {
-
+        abilities = GetComponent<PlayerAbilityTracker>();
     }
 
     void Update()
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("Fire2") && standing.activeSelf)
+            if (Input.GetButtonDown("Fire2") && standing.activeSelf && abilities.canDash)
             {
                 dashCounter = dashTime;
                 ShowAfterImage();
@@ -90,7 +92,7 @@ public class PlayerController : MonoBehaviour
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
         // Character Jumping Condition
-        if (Input.GetButtonDown("Jump") && (isOnGround || canDoubleJump))
+        if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && abilities.canDoubleJump)))
         {
             if (isOnGround)
             {
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
         }
 
-        // Shooting
+        // Shooting and Bombing
         if (Input.GetButtonDown("Fire1"))
         {
             if (standing.activeSelf)
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDir = new Vector2(transform.localScale.x, 0f);
                 anim.SetTrigger("shotFired");
             }
-            else if (ball.activeSelf)
+            else if (ball.activeSelf && abilities.canDropBomb) //Bomb while Down
             {
                 Instantiate(bomb, bombPoint.position, bombPoint.rotation);
             }
@@ -121,7 +123,7 @@ public class PlayerController : MonoBehaviour
         // Ball Mode
         if (!ball.activeSelf)
         {
-            if (Input.GetAxisRaw("Vertical") < -0.9f)
+            if (Input.GetAxisRaw("Vertical") < -0.9f && abilities.canBecomeBall)
             {
                 ballCounter -= Time.deltaTime;
                 if (ballCounter <= 0)
