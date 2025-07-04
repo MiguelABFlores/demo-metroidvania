@@ -16,7 +16,6 @@ public class CrabPatroller : MonoBehaviour
     public Rigidbody2D theRB;
     public Animator anim;
 
-    // Start is called before the first frame update
     void Start()
     {
         waitCounter = waitAtPoints;
@@ -27,7 +26,6 @@ public class CrabPatroller : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Mathf.Abs(transform.position.x - patrolPoints[currentPoint].position.x) > 0.2f)
