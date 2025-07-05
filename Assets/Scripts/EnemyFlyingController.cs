@@ -12,6 +12,8 @@ public class EnemyFlyingController : MonoBehaviour
 
     private Transform player;
 
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class EnemyFlyingController : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) < rangeToStartChase)
             {
                 isChasing = true;
+                anim.SetBool("isChasing", isChasing);
             }
         }
         else
@@ -37,6 +40,7 @@ public class EnemyFlyingController : MonoBehaviour
                 Quaternion targetRot = Quaternion.AngleAxis(angle, Vector3.forward);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+                transform.position += -transform.right * moveSpeed * Time.deltaTime;
             }
         }
     }
