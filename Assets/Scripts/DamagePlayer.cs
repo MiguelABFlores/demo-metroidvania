@@ -29,11 +29,13 @@ public class DamagePlayer : MonoBehaviour
     {
         PlayerHealthController.instance.DamagePlayer(damageAmount);
 
-        if (destroyEffect != null)
+        if (destroyOnDamage)
         {
-            Instantiate(destroyEffect, transform.position, transform.rotation);
+            if (destroyEffect != null)
+            {
+                Instantiate(destroyEffect, transform.position, transform.rotation);
+            }
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
 }
