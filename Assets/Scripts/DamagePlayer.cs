@@ -21,6 +21,7 @@ public class DamagePlayer : MonoBehaviour
             DealDamage();
         }
     }
+
     void DealDamage()
     {
         PlayerHealthController.instance.DamagePlayer(damageAmount);
